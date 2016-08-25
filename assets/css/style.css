@@ -12,10 +12,16 @@ img {
 	width: 150px;
 	padding: 20px;
 	background-color: #ffffff;
-	box-shadow:0 0 10px green;
+	border: 3px solid green;
+}
+
+#enemiesAvailable img{
+	background-color: #FF0000;
+	border: 2px solid black;
 }
 
 body {
-    background-image: url("images/starwars fighter.jpg");
+    background-image: url("../images/starwarsFighter.jpg");
     background-color: #cccccc;
+    background-repeat: no-repeat;
 }
