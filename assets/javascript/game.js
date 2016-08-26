@@ -14,52 +14,66 @@ var char3 = $('.char3');
 var char4 = $('.char4');
 var yourCharacter;
 var defender;
-var defenderNotChosen = true;
-var characterNotSelected = true;
+var isYourCharacterSelected = false;
+var isTheDefenderSelected = false;
+// var defenderNotChosen = true;
+// var characterNotSelected = true;
 var enemiesAvailable = [];
 
 
+// $('.character').on('click', function(){
+
+// 	if ($(this).hasClass("char1") && characterNotSelected) {
+// 		yourCharacter = $(this);
+// 		$('#yourCharacter').prepend(yourCharacter);
+// 		$('#enemiesAvailable').append(char2,char3,char4);
+// 		characterNotSelected = false;
+// 	}
+// 	else if ($(this).hasClass("char2") && characterNotSelected) {
+// 		yourCharacter = $(this);
+// 		$('#yourCharacter').prepend(yourCharacter);
+// 		$('#enemiesAvailable').append(char1,char3,char4);
+// 		characterNotSelected = false;
+// 	}
+// 	else if ($(this).hasClass("char3") && characterNotSelected) {
+// 		yourCharacter = $(this);
+// 		$('#yourCharacter').prepend(yourCharacter);
+// 		$('#enemiesAvailable').append(char1,char2,char4);
+// 		characterNotSelected = false;
+// 	}
+// 	else if ($(this).hasClass("char4") && characterNotSelected) {
+// 		yourCharacter = $(this);
+// 		$('#yourCharacter').prepend(yourCharacter);
+// 		$('#enemiesAvailable').append(char1,char2,char3);
+// 		characterNotSelected = false;
+// 	}
+
+// 	if ($('#enemiesAvailable').find(this) > -1 && defenderNotChosen) {
+
+// 			defender = $(this);
+// 			$('#defender').append(defender);
+
+// 		}
+// 		x = $('#enemiesAvailable').find(this).inArray()
+// 		console.log(x);
+// 		$(enemiesAvailable).append(char1,char2,char3);
+// 		console.log($(enemiesAvailable).push(char1,char2,char3));
+// 	})
+
 $('.character').on('click', function(){
-
-	if ($(this).hasClass("char1") && characterNotSelected) {
-	yourCharacter = $(this);
-	$('#yourCharacter').prepend(yourCharacter);
-	$('#enemiesAvailable').append(char2,char3,char4);
-	characterNotSelected = false;
-	}
-	else if ($(this).hasClass("char2") && characterNotSelected) {
-	yourCharacter = $(this);
-	$('#yourCharacter').prepend(yourCharacter);
-	$('#enemiesAvailable').append(char1,char3,char4);
-	characterNotSelected = false;
-	}
-	else if ($(this).hasClass("char3") && characterNotSelected) {
-	yourCharacter = $(this);
-	$('#yourCharacter').prepend(yourCharacter);
-	$('#enemiesAvailable').append(char1,char2,char4);
-	characterNotSelected = false;
-	}
-	else if ($(this).hasClass("char4") && characterNotSelected) {
-	yourCharacter = $(this);
-	$('#yourCharacter').prepend(yourCharacter);
-	$('#enemiesAvailable').append(char1,char2,char3);
-	characterNotSelected = false;
+	if (!isYourCharacterSelected) {
+		yourCharacter = $(this);
+		$('#yourCharacter').append(yourCharacter);
+		$('#enemiesAvailable').append($('#waitingArea').children());
+		isYourCharacterSelected = true;
+	
+	}	else if (!isTheDefenderSelected){
+		defender = $(this);
+		$('#defender').append(defender);
+		isTheDefenderSelected = true;
 	}
 
-	if ($('#enemiesAvailable').find(this) > -1 && defenderNotChosen) {
-
-			defender = $(this);
-			$('#defender').append(defender);
-
-		}
-		x = $('#enemiesAvailable').find(this).inArray()
-		console.log(x);
-		$(enemiesAvailable).append(char1,char2,char3);
-		console.log($(enemiesAvailable).push(char1,char2,char3));
-	})
-
-
-
+})
 
 
 })
