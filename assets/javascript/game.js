@@ -18,7 +18,6 @@ var isYourCharacterSelected = false;
 var isTheDefenderSelected = false;
 // var defenderNotChosen = true;
 // var characterNotSelected = true;
-var enemiesAvailable = [];
 
 
 // $('.character').on('click', function(){
@@ -74,6 +73,10 @@ $('.character').on('click', function(){
 	}
 
 })
+
+// $('#attack').on('click', function()){
+	
+// }
 
 
 })

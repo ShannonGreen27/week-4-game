@@ -20,8 +20,19 @@ img {
 	border: 2px solid black;
 }
 
+#defender img{
+	background-color: black;
+	border: 2px solid green;
+	color: #ffffff;
+}
+
+
 body {
     background-image: url("../images/starwarsFighter.jpg");
     background-color: #cccccc;
     background-repeat: no-repeat;
+}
+
+.charTile{
+	display: inline;
 }
