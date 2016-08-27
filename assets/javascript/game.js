@@ -14,6 +14,8 @@ var defenderStats;
 var isYourCharacterSelected = false;
 var isTheDefenderSelected = false;
 
+copyDiv();
+
 $(document).ready(function(){
 
 	statPrint();
@@ -31,7 +33,6 @@ $(document).ready(function(){
 			isTheDefenderSelected = true;
 			clear();
 		}
-		console.log($(yourCharacter).children('.obiWanHealth'));
 		stats();
 	})
 
@@ -42,19 +43,34 @@ $(document).ready(function(){
 
 			if (yourCharacterStats.hp > 0) {
 
-				if (attackIncrease == 0) {
-				attackIncrease = yourCharacterStats.attack;
-				}
-				yourCharacterStats.hp-= defenderStats.counterAttack;
-				defenderStats.hp-= yourCharacterStats.attack;
-				displayResult();
 				yourCharacterStats.attack+= attackIncrease;
 
+				if (defenderStats.hp > yourCharacterStats.attack) {
+
+					if (attackIncrease == 0) {
+
+					attackIncrease = yourCharacterStats.attack;
+
+					}
+					yourCharacterStats.hp-= defenderStats.counterAttack;
+					defenderStats.hp-= yourCharacterStats.attack;
+					displayResult();
+
+					}	else if ($('#enemiesAvailable') == null && $('#defender') == null) {
+
+						$('#result').html("You won. The universe is safe.")
+						restartGame();
+
+					} else {
+
+						$('#result').html("<p>You defeated " + defenderStats.name + ", choose you next enemy</p>");
+						$('#defender').empty();
+						isTheDefenderSelected = false;
+					}
+
 			}	else {
-				$('#prompt').html('You have been defeated');
-				$('#restart').append($('<button>Restart<button/>').on('click', function() {
-					restart();
-				}))
+				$('#result').html('You have been defeated');
+				restartGame();
 			}
 
 		}	else {
@@ -68,7 +84,8 @@ $(document).ready(function(){
 })
 
 function clear() {
-	$('#prompt').empty();		
+	$('#prompt').empty();
+	$('#result').empty();	
 }
 
 function statPrint() {
@@ -85,42 +102,68 @@ function statPrint() {
 	$('.dMaulHealth').html(dMaul.hp);
 }
 
+function restartGame()	{
+	$('#restart').append($('<button>Restart<button/>').on('click', function() {
+		restart();
+	}))
+}
+
 function restart()	{
 	attackIncrease = 0;
 	yourCharacter;
 	defender;
 	isYourCharacterSelected = false;
 	isTheDefenderSelected = false;
+	$("#waitingArea").replaceWith(divClone.clone());
 }
 
-//I know the solution to this just dont have the time to do it lol
 function displayResult() {
-	$('#result').html("<p>You attacked" + defenderStats.name + " for " + obiWan.attack + " damage.</p>" + 
-		"<p>" + defenderStats.name + " attacked you back for " + luke.counterAttack + " damage.</p>");
+	$('#result').html("<p>You attacked " + defenderStats.name + " for " + obiWan.attack + " damage.</p>" + 
+		"<p>" + defenderStats.name + " attacked you back for " + defenderStats.counterAttack + " damage.</p>");
 
-		if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('lukeName')) {
+	if (yourCharacter.children().hasClass('obiWanName')) {
+		
 		$(yourCharacter).children('.obiWanHealth').html(yourCharacterStats.hp);
+
+	}	else if (yourCharacter.children().hasClass('lukeName')) {
+		
+		$(yourCharacter).children('.lukeHealth').html(yourCharacterStats.hp);
+
+	}	else if (yourCharacter.children().hasClass('dSidiousName')) {
+		
+		$(yourCharacter).children('.dSidiousHealth').html(yourCharacterStats.hp);
+
+	}	else if (yourCharacter.children().hasClass('dMaulName')) {
+		
+		$(yourCharacter).children('.dMaulHealth').html(yourCharacterStats.hp);
+
+	}
+
+	if (defender.children().hasClass('obiWanName')) {
+		
+		$(defender).children('.obiWanHealth').html(defenderStats.hp);
+
+	}	else if (defender.children().hasClass('lukeName')) {
+		
 		$(defender).children('.lukeHealth').html(defenderStats.hp);
 
-	}	
+	}	else if (defender.children().hasClass('dSidiousName')) {
+		
+		$(defender).children('.dSidiousHealth').html(defenderStats.hp);
 
-		if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('lukeName')) {
-			$(yourCharacter).children('.obiWanHealth').html(yourCharacterStats.hp);
-			$(defender).children('.lukeHealth').html(defenderStats.hp);
+	}	else if (defender.children().hasClass('dMaulName')) {
+		
+		$(defender).children('.dMaulHealth').html(defenderStats.hp);
 
-		}	
-	// else if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('dSidiousName')) {
-	// 	$('.obiWanHealth').html(obiWan.hp);
-	// 	$('.lukeHealth').html(luke.hp);
+	}
 
-	// }	else if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('obiWanName')) {
-	// 	$('.obiWanHealth').html(obiWan.hp);
-	// 	$('.lukeHealth').html(luke.hp);
 
-	// }	else if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('obiWanName')) {
-	// 	$('.obiWanHealth').html(obiWan.hp);
-	// 	$('.lukeHealth').html(luke.hp);
-	// }
+}
+
+function copyDiv() {
+
+	var divClone = $("#waitingArea").clone();
+
 }
 
 function stats()	{
