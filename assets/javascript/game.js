@@ -6,7 +6,7 @@ var dSidious = {name: "Darth Sidious", attack: 18, counterAttack: 30, hp: 150};
 
 var dMaul = {name: "Darth Maul", attack: 25, counterAttack: 42, hp: 180};
 
-
+var attackIncrease = 0;
 var yourCharacter;
 var defender;
 var isYourCharacterSelected = false;
@@ -18,7 +18,67 @@ var isTheDefenderSelected = false;
 
 $(document).ready(function(){
 
-// console.log($('.obiWan').before(obiWan.name));
+	stats();
+
+	$('.character').on('click', function(){
+		if (!isYourCharacterSelected) {
+			yourCharacter = $(this);
+			$('#yourCharacter').append(yourCharacter);
+			$('#enemiesAvailable').append($('#waitingArea').children());
+			isYourCharacterSelected = true;
+		
+		}	else if (!isTheDefenderSelected){
+			defender = $(this);
+			$('#defender').append(defender);
+			isTheDefenderSelected = true;
+			clear();
+		}
+
+	})
+
+	$('#attack').on('click', function(){
+
+		if (isYourCharacterSelected && isTheDefenderSelected) {
+
+			if (obiWan.hp > 0) {
+
+				if (attackIncrease == 0) {
+				attackIncrease = obiWan.attack;
+				}
+				obiWan.hp-= luke.counterAttack;
+				luke.hp-= obiWan.attack;
+				displayResult();
+				obiWan.attack+= attackIncrease;
+
+			}	else {
+				$('#prompt').html('You have been defeated');
+				$('#restart').append($('<button>Restart<button/>').on('click', function() {
+					restart();
+				}))
+			}
+
+		}	else {
+
+			$('#prompt').html('Please select your character and enemy you want to attack.');
+
+		}		
+
+	})
+
+})
+
+function clear() {
+	$('#prompt').empty();		
+}
+
+function displayResult() {
+
+	$('#result').html("<p>You attacked Luke Skywalker for " + obiWan.attack + " damage.</p>" + 
+		"<p>Luke Skywalker attacked you back for " + luke.counterAttack + " damage.</p>");
+
+	$('.obiWanHealth').html(obiWan.hp);
+	$('.lukeHealth').html(luke.hp);
+}
 
 function stats() {
 	$('.obiWanName').html(obiWan.name);
@@ -34,69 +94,10 @@ function stats() {
 	$('.dMaulHealth').html(dMaul.hp);
 }
 
-stats();
-
-// var defenderNotChosen = true;
-// var characterNotSelected = true;
-
-
-// $('.character').on('click', function(){
-
-// 	if ($(this).hasClass("char1") && characterNotSelected) {
-// 		yourCharacter = $(this);
-// 		$('#yourCharacter').prepend(yourCharacter);
-// 		$('#enemiesAvailable').append(char2,char3,char4);
-// 		characterNotSelected = false;
-// 	}
-// 	else if ($(this).hasClass("char2") && characterNotSelected) {
-// 		yourCharacter = $(this);
-// 		$('#yourCharacter').prepend(yourCharacter);
-// 		$('#enemiesAvailable').append(char1,char3,char4);
-// 		characterNotSelected = false;
-// 	}
-// 	else if ($(this).hasClass("char3") && characterNotSelected) {
-// 		yourCharacter = $(this);
-// 		$('#yourCharacter').prepend(yourCharacter);
-// 		$('#enemiesAvailable').append(char1,char2,char4);
-// 		characterNotSelected = false;
-// 	}
-// 	else if ($(this).hasClass("char4") && characterNotSelected) {
-// 		yourCharacter = $(this);
-// 		$('#yourCharacter').prepend(yourCharacter);
-// 		$('#enemiesAvailable').append(char1,char2,char3);
-// 		characterNotSelected = false;
-// 	}
-
-// 	if ($('#enemiesAvailable').find(this) > -1 && defenderNotChosen) {
-
-// 			defender = $(this);
-// 			$('#defender').append(defender);
-
-// 		}
-// 		x = $('#enemiesAvailable').find(this).inArray()
-// 		console.log(x);
-// 		$(enemiesAvailable).append(char1,char2,char3);
-// 		console.log($(enemiesAvailable).push(char1,char2,char3));
-// 	})
-
-$('.character').on('click', function(){
-	if (!isYourCharacterSelected) {
-		yourCharacter = $(this);
-		$('#yourCharacter').append(yourCharacter);
-		$('#enemiesAvailable').append($('#waitingArea').children());
-		isYourCharacterSelected = true;
-	
-	}	else if (!isTheDefenderSelected){
-		defender = $(this);
-		$('#defender').append(defender);
-		isTheDefenderSelected = true;
-	}
-
-})
-
-// $('#attack').on('click', function()){
-
-// }
-
-
-})
+function restart()	{
+	attackIncrease = 0;
+	yourCharacter;
+	defender;
+	isYourCharacterSelected = false;
+	isTheDefenderSelected = false;
+}
