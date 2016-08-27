@@ -2,20 +2,40 @@ var obiWan = {name: "Obi-Wan Kenobi", attack: 8, counterAttack: 20, hp: 120};
 
 var luke= {name: "Luke Skywalker", attack: 5, counterAttack: 15, hp: 100};
 
-var darthSidious = {name: "Darth Sidious", attack: 18, counterAttack: 30, hp: 150};
+var dSidious = {name: "Darth Sidious", attack: 18, counterAttack: 30, hp: 150};
 
-var darthMaul = {name: "Darth Maul", attack: 25, counterAttack: 42, hp: 180};
+var dMaul = {name: "Darth Maul", attack: 25, counterAttack: 42, hp: 180};
 
-$(document).ready(function(){
 
-var char1 = $('.char1');
-var char2 = $('.char2');
-var char3 = $('.char3');
-var char4 = $('.char4');
 var yourCharacter;
 var defender;
 var isYourCharacterSelected = false;
 var isTheDefenderSelected = false;
+// var char1 = $('.char1');
+// var char2 = $('.char2');
+// var char3 = $('.char3');
+// var char4 = $('.char4');
+
+$(document).ready(function(){
+
+// console.log($('.obiWan').before(obiWan.name));
+
+function stats() {
+	$('.obiWanName').html(obiWan.name);
+	$('.obiWanHealth').html(obiWan.hp);
+
+	$('.lukeName').html(luke.name);
+	$('.lukeHealth').html(luke.hp);
+
+	$('.dSidiousName').html(dSidious.name);
+	$('.dSidiousHealth').html(dSidious.hp);
+
+	$('.dMaulName').html(dMaul.name);
+	$('.dMaulHealth').html(dMaul.hp);
+}
+
+stats();
+
 // var defenderNotChosen = true;
 // var characterNotSelected = true;
 
@@ -75,7 +95,7 @@ $('.character').on('click', function(){
 })
 
 // $('#attack').on('click', function()){
-	
+
 // }
 
 
