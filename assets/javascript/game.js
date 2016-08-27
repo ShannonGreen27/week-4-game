@@ -1,6 +1,6 @@
 var obiWan = {name: "Obi-Wan Kenobi", attack: 8, counterAttack: 8, hp: 120};
 
-var luke= {name: "Luke Skywalker", attack: 5, counterAttack: 5, hp: 100};
+var luke = {name: "Luke Skywalker", attack: 5, counterAttack: 5, hp: 100};
 
 var dSidious = {name: "Darth Sidious", attack: 15, counterAttack: 20, hp: 150};
 
@@ -13,14 +13,10 @@ var yourCharacterStats;
 var defenderStats;
 var isYourCharacterSelected = false;
 var isTheDefenderSelected = false;
-// var char1 = $('.char1');
-// var char2 = $('.char2');
-// var char3 = $('.char3');
-// var char4 = $('.char4');
 
 $(document).ready(function(){
 
-	stats();
+	statPrint();
 
 	$('.character').on('click', function(){
 		if (!isYourCharacterSelected) {
@@ -35,46 +31,10 @@ $(document).ready(function(){
 			isTheDefenderSelected = true;
 			clear();
 		}
-
+		console.log($(yourCharacter).children('.obiWanHealth'));
+		stats();
 	})
 
-// Chooses appropriate object stats for your character
-	if ((yourCharacter.children()).hasClass('obiWanName')) {
-
-		yourCharacterStats = obiWan;	
-	}
-// 		else if (yourCharacter.children().hasClass('lukeName')) {
-
-// 		yourCharacterStats = luke;	
-
-// 	}	else if (yourCharacter.children().hasClass('dSidiousName')) {
-
-// 		yourCharacterStats = dSidious;
-
-// 	}	else if (yourCharacter.children().hasClass('dMaulName')) {
-
-// 		yourCharacterStats = dMaul;
-
-// 	}
-
-// // Chooses appropriate object stats for the defender
-// 	if (defender.children().hasClass('obiWanName')) {
-
-// 		defenderStats = obiWan;	
-// 	}
-// 		else if (defender.children().hasClass('lukeName')) {
-
-// 		defenderStats = luke;	
-
-// 	}	else if (defender.children().hasClass('dSidiousName')) {
-
-// 		defenderStats = dSidious;
-
-// 	}	else if (defender.children().hasClass('dMaulName')) {
-
-// 		defenderStats = dMaul;
-
-// 	}
 
 	$('#attack').on('click', function(){
 
@@ -111,16 +71,7 @@ function clear() {
 	$('#prompt').empty();		
 }
 
-function displayResult() {
-
-	$('#result').html("<p>You attacked Luke Skywalker for " + obiWan.attack + " damage.</p>" + 
-		"<p>Luke Skywalker attacked you back for " + luke.counterAttack + " damage.</p>");
-
-	$('.obiWanHealth').html(obiWan.hp);
-	$('.lukeHealth').html(luke.hp);
-}
-
-function stats() {
+function statPrint() {
 	$('.obiWanName').html(obiWan.name);
 	$('.obiWanHealth').html(obiWan.hp);
 
@@ -140,4 +91,74 @@ function restart()	{
 	defender;
 	isYourCharacterSelected = false;
 	isTheDefenderSelected = false;
+}
+
+//I know the solution to this just dont have the time to do it lol
+function displayResult() {
+	$('#result').html("<p>You attacked" + defenderStats.name + " for " + obiWan.attack + " damage.</p>" + 
+		"<p>" + defenderStats.name + " attacked you back for " + luke.counterAttack + " damage.</p>");
+
+		if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('lukeName')) {
+		$(yourCharacter).children('.obiWanHealth').html(yourCharacterStats.hp);
+		$(defender).children('.lukeHealth').html(defenderStats.hp);
+
+	}	
+
+		if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('lukeName')) {
+			$(yourCharacter).children('.obiWanHealth').html(yourCharacterStats.hp);
+			$(defender).children('.lukeHealth').html(defenderStats.hp);
+
+		}	
+	// else if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('dSidiousName')) {
+	// 	$('.obiWanHealth').html(obiWan.hp);
+	// 	$('.lukeHealth').html(luke.hp);
+
+	// }	else if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('obiWanName')) {
+	// 	$('.obiWanHealth').html(obiWan.hp);
+	// 	$('.lukeHealth').html(luke.hp);
+
+	// }	else if (yourCharacter.children().hasClass('obiWanName') && defender.children().hasClass('obiWanName')) {
+	// 	$('.obiWanHealth').html(obiWan.hp);
+	// 	$('.lukeHealth').html(luke.hp);
+	// }
+}
+
+function stats()	{
+		// Chooses appropriate object stats for your character
+		if (yourCharacter.children().hasClass('obiWanName')) {
+
+			yourCharacterStats = obiWan;	
+		
+		}	else if (yourCharacter.children().hasClass('lukeName')) {
+
+			yourCharacterStats = luke;	
+
+		}	else if (yourCharacter.children().hasClass('dSidiousName')) {
+
+			yourCharacterStats = dSidious;
+
+		}	else if (yourCharacter.children().hasClass('dMaulName')) {
+
+			yourCharacterStats = dMaul;
+
+		}
+
+	// Chooses appropriate object stats for the defender
+		if (defender.children().hasClass('obiWanName')) {
+
+			defenderStats = obiWan;	
+
+		}	else if (defender.children().hasClass('lukeName')) {
+
+			defenderStats = luke;	
+
+		}	else if (defender.children().hasClass('dSidiousName')) {
+
+			defenderStats = dSidious;
+
+		}	else if (defender.children().hasClass('dMaulName')) {
+
+			defenderStats = dMaul;
+
+		}
 }
