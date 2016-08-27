@@ -1,14 +1,16 @@
-var obiWan = {name: "Obi-Wan Kenobi", attack: 8, counterAttack: 20, hp: 120};
+var obiWan = {name: "Obi-Wan Kenobi", attack: 8, counterAttack: 8, hp: 120};
 
-var luke= {name: "Luke Skywalker", attack: 5, counterAttack: 15, hp: 100};
+var luke= {name: "Luke Skywalker", attack: 5, counterAttack: 5, hp: 100};
 
-var dSidious = {name: "Darth Sidious", attack: 18, counterAttack: 30, hp: 150};
+var dSidious = {name: "Darth Sidious", attack: 15, counterAttack: 20, hp: 150};
 
-var dMaul = {name: "Darth Maul", attack: 25, counterAttack: 42, hp: 180};
+var dMaul = {name: "Darth Maul", attack: 25, counterAttack: 25, hp: 180};
 
 var attackIncrease = 0;
 var yourCharacter;
 var defender;
+var yourCharacterStats;
+var defenderStats;
 var isYourCharacterSelected = false;
 var isTheDefenderSelected = false;
 // var char1 = $('.char1');
@@ -36,19 +38,57 @@ $(document).ready(function(){
 
 	})
 
+// Chooses appropriate object stats for your character
+	if ((yourCharacter.children()).hasClass('obiWanName')) {
+
+		yourCharacterStats = obiWan;	
+	}
+// 		else if (yourCharacter.children().hasClass('lukeName')) {
+
+// 		yourCharacterStats = luke;	
+
+// 	}	else if (yourCharacter.children().hasClass('dSidiousName')) {
+
+// 		yourCharacterStats = dSidious;
+
+// 	}	else if (yourCharacter.children().hasClass('dMaulName')) {
+
+// 		yourCharacterStats = dMaul;
+
+// 	}
+
+// // Chooses appropriate object stats for the defender
+// 	if (defender.children().hasClass('obiWanName')) {
+
+// 		defenderStats = obiWan;	
+// 	}
+// 		else if (defender.children().hasClass('lukeName')) {
+
+// 		defenderStats = luke;	
+
+// 	}	else if (defender.children().hasClass('dSidiousName')) {
+
+// 		defenderStats = dSidious;
+
+// 	}	else if (defender.children().hasClass('dMaulName')) {
+
+// 		defenderStats = dMaul;
+
+// 	}
+
 	$('#attack').on('click', function(){
 
 		if (isYourCharacterSelected && isTheDefenderSelected) {
 
-			if (obiWan.hp > 0) {
+			if (yourCharacterStats.hp > 0) {
 
 				if (attackIncrease == 0) {
-				attackIncrease = obiWan.attack;
+				attackIncrease = yourCharacterStats.attack;
 				}
-				obiWan.hp-= luke.counterAttack;
-				luke.hp-= obiWan.attack;
+				yourCharacterStats.hp-= defenderStats.counterAttack;
+				defenderStats.hp-= yourCharacterStats.attack;
 				displayResult();
-				obiWan.attack+= attackIncrease;
+				yourCharacterStats.attack+= attackIncrease;
 
 			}	else {
 				$('#prompt').html('You have been defeated');
@@ -59,7 +99,7 @@ $(document).ready(function(){
 
 		}	else {
 
-			$('#prompt').html('Please select your character and enemy you want to attack.');
+			$('#prompt').html('No enemy selected.');
 
 		}		
 
