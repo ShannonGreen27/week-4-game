@@ -13,11 +13,10 @@ var yourCharacterStats;
 var defenderStats;
 var isYourCharacterSelected = false;
 var isTheDefenderSelected = false;
-
-copyDiv();
+var divClone;
 
 $(document).ready(function(){
-
+	copyDiv();
 	statPrint();
 
 	$('.character').on('click', function(){
@@ -56,16 +55,20 @@ $(document).ready(function(){
 					defenderStats.hp-= yourCharacterStats.attack;
 					displayResult();
 
-					}	else if ($('#enemiesAvailable') == null && $('#defender') == null) {
+					}	else {
+
+						if ($('#enemiesAvailable').children() == null && $('#defender').children() == null) {
 
 						$('#result').html("You won. The universe is safe.")
 						restartGame();
+						}	else {
 
-					} else {
+							$('#result').html("<p>You defeated " + defenderStats.name + ", choose you next enemy</p>");
+							$('#defender').empty();
+							isTheDefenderSelected = false;
 
-						$('#result').html("<p>You defeated " + defenderStats.name + ", choose you next enemy</p>");
-						$('#defender').empty();
-						isTheDefenderSelected = false;
+						}
+
 					}
 
 			}	else {
@@ -115,6 +118,13 @@ function restart()	{
 	isYourCharacterSelected = false;
 	isTheDefenderSelected = false;
 	$("#waitingArea").replaceWith(divClone.clone());
+	var obiWan = {name: "Obi-Wan Kenobi", attack: 8, counterAttack: 8, hp: 120};
+
+	var luke = {name: "Luke Skywalker", attack: 5, counterAttack: 5, hp: 100};
+
+	var dSidious = {name: "Darth Sidious", attack: 15, counterAttack: 20, hp: 150};
+
+	var dMaul = {name: "Darth Maul", attack: 25, counterAttack: 25, hp: 180};
 }
 
 function displayResult() {
@@ -162,7 +172,7 @@ function displayResult() {
 
 function copyDiv() {
 
-	var divClone = $("#waitingArea").clone();
+	divClone = $("#waitingArea").clone();
 
 }
 
